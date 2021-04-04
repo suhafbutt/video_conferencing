@@ -7,6 +7,6 @@ class Mentor < User
   has_many :appointments
 
   def json
-    as_json(:except => [:created_at, :updated_at])
+    MentorSerializer.new(self).serializable_hash.to_json
   end
 end

@@ -14,7 +14,7 @@ class Appointment < ApplicationRecord
   # accepts_nested_attributes_for :students
 
   def json
-    as_json(:except => [:created_at, :updated_at, :mentor_id])
+    AppointmentSerializer.new(self).serializable_hash.to_json
   end
 
   private
