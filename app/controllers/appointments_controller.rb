@@ -40,7 +40,8 @@ class AppointmentsController < ApplicationController
 
     def permit_params
       formatted_date_time = params[:appointment][:start_at].to_time rescue ''
-      params.require(:appointment).permit(:reason, :student_id).merge!({start_at: formatted_date_time})
+      params[:appointment][:user_ids] = params[:appointment][:user_ids] + [@mentor.id] rescue []
+      params.require(:appointment).permit(:reason, user_ids:[]).merge!({start_at: formatted_date_time})
     end
 
     def error_response obj

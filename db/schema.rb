@@ -32,13 +32,6 @@ ActiveRecord::Schema.define(version: 2021_04_04_180907) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "mentors_students", force: :cascade do |t|
-    t.integer "mentor_id", null: false
-    t.integer "student_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
