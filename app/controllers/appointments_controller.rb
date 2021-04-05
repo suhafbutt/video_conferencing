@@ -6,13 +6,13 @@ class AppointmentsController < ApplicationController
   before_action :set_appointment, only: :update
 
   def index
-    render json: { status: "success", mentor: @mentor.json, calendar: list_of_hours(params[:date])} 
+    render json: { status: "success", mentor: @mentor.json, calendar: list_of_hours(params[:date])}
   end
 
   def create
     app = @mentor.appointments.new(permit_params)
     if app.save
-      render json: { status: "success", message: "Appointment has been created!", appointment: app.json} 
+      render json: { status: "success", message: "Appointment has been created!", appointment: app}, :serializer => AppointmentSerializer
     else
       render json: error_response(app)
     end

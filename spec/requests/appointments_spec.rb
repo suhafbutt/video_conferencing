@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Appointments", type: :request do
   before do
-    @m = Mentor.new(first_name: 'abc', last_name: 'xyz', email: 'qwerty@xyz.com', time_zone: '+1')
+    @m = FactoryBot.create(:mentor)
     @m.save
   end
   describe "GET /index" do
@@ -22,8 +22,8 @@ RSpec.describe "Appointments", type: :request do
 
   describe "Post /appointments" do
     before do
-      student_id = Student.create({first_name: 'student', last_name: 'one', email: 'qwerty@xyz.com', time_zone: '+1'})
-      post mentor_appointments_path(@m, 'appointment[start_at]': '2020-10-25T02:00:00.000+02:00', 'appointment[reason]': 'Need asap', 'appointment[student_id]': student_id)
+      student_id = FactoryBot.create(:student)
+      post mentor_appointments_path(@m, 'appointment[start_at]': '2020-10-25T02:00:00.000+02:00', 'appointment[reason]': 'Need asap', 'appointment[user_ids][]': student_id)
     end
 
     it "should successfully create an appointment and should return newly created record" do
@@ -33,8 +33,8 @@ RSpec.describe "Appointments", type: :request do
     end
 
     it "should fail if the duplicate appointment " do
-      student_id = Student.create({first_name: 'student', last_name: 'two', email: 'qwerty@xyz.com', time_zone: '+1'})
-      post mentor_appointments_path(@m, 'appointment[start_at]': '2020-10-25T02:00:00.000+02:00', 'appointment[reason]': 'Need asap', 'appointment[student_id]': student_id)
+      student_id = FactoryBot.create(:student)
+      post mentor_appointments_path(@m, 'appointment[start_at]': '2020-10-25T02:00:00.000+02:00', 'appointment[reason]': 'Need asap', 'appointment[user_ids][]': student_id)
       json_response = JSON.parse(response.body)
       expect(json_response['status']).to match('error')
     end
