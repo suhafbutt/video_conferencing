@@ -30,8 +30,6 @@ RSpec.describe "Appointments", type: :request do
       get mentor_appointments_path(mentor, date: '2020-10-25')
       json_response = JSON.parse(response.body)
       booking_status = json_response['calendar'].map { |e| e[1]  }
-      puts "-=-=---==============================================================="
-      puts json_response['calendar']
       expect(booking_status).to include('Booked')
     end
   end

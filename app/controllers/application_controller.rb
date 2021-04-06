@@ -5,6 +5,6 @@ class ApplicationController < ActionController::API
 
 	private
 		def error_response(message, status)
-			{status: I18n.t('errors.status'), message: message, status: status}
+			render json: {status: I18n.t('errors.status'), message: message}, status: status
 		end
 end

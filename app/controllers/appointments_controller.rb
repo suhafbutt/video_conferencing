@@ -9,9 +9,6 @@ class AppointmentsController < ApplicationController
   # index
   #
   def index
-    # res = CareerFoundryApi.get_mentor_agenda
-    # puts "-=-=-=-==-==========iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
-    # puts res.inspect
     render json: { status: I18n.t('success.status'), mentor: @mentor.json, calendar: list_of_hours(params[:date])}
   end
 
@@ -24,7 +21,7 @@ class AppointmentsController < ApplicationController
     if @mentor.save
       render json: { status: I18n.t('success.status'), message: I18n.t('success.appointment_create'), appointment: appointment.json}, status: 201
     else
-      render json: error_response(appointment.errors.full_messages.to_sentence, 422)
+      error_response(appointment.errors.full_messages.to_sentence, 422)
     end
   end
 
@@ -35,7 +32,7 @@ class AppointmentsController < ApplicationController
     if @appointment.update(permit_params)
       render json: {status: I18n.t('success.status'), message: I18n.t('success.appointment_update'), appointment: @appointment.json}, status: 202
     else
-      render json: error_response(@appointment.errors.full_messages.to_sentence, 422)
+      error_response(@appointment.errors.full_messages.to_sentence, 422)
     end
   end
 
@@ -47,7 +44,7 @@ class AppointmentsController < ApplicationController
     if @appointment.destroy
       render json: {status: I18n.t('success.status'), message: I18n.t('success.appointment_delete'), appointment: @appointment.json}, status: 200
     else
-      render json: error_response(@appointment.errors.full_messages.to_sentence, 422)
+      error_response(@appointment.errors.full_messages.to_sentence, 422)
     end
   end
 
@@ -57,7 +54,7 @@ class AppointmentsController < ApplicationController
     #
     def set_mentor
       @mentor = Mentor.find(params[:mentor_id]) rescue nil
-      render json: error_response(I18n.t('errors.mentor_not_found'), 404) unless @mentor.present?
+      error_response(I18n.t('errors.mentor_not_found'), 404) unless @mentor.present?
     end
 
     #
@@ -65,7 +62,7 @@ class AppointmentsController < ApplicationController
     #
     def set_appointment
       @appointment = @mentor.appointments.find(params[:id]) rescue nil
-      render json: error_response(I18n.t('errors.appointment_not_found'), 404) unless @appointment.present?
+      error_response(I18n.t('errors.appointment_not_found'), 404) unless @appointment.present?
     end
 
     #
