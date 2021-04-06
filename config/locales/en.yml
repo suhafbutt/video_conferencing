@@ -34,9 +34,11 @@ en:
     status: "success"
     appointment_create: "Appointment has been created!"
     appointment_update: "Appointment has been updated!"
+    appointment_delete: "Appointment has been deleted!"
 
   errors:
     status: "error"
     time_slot: "has already been taken. Please select another slot."
     mentor_not_found: "Mentor does not exist"
     students_not_found: ": Students should be present!"
+    appointment_not_found: "Appointment does not exist"

@@ -3,7 +3,7 @@ class AppointmentsController < ApplicationController
   include TimeCalculations
 
   before_action :set_mentor
-  before_action :set_appointment, only: :update
+  before_action :set_appointment, only: [:update, :show, :destroy]
 
   #
   # index
@@ -17,11 +17,11 @@ class AppointmentsController < ApplicationController
   #
   def create
     appointment = @mentor.appointments.new(permit_params)
-    appointment.mentor_id = @mentor.id
+    appointment.mentor_id = @mentor.id # mentor_id will be used to validate the duplication for the Mentor
     if @mentor.save
       render json: { status: I18n.t('success.status'), message: I18n.t('success.appointment_create'), appointment: appointment.json}, status: 201
     else
-      render json: error_response(appointment), status: 400
+      render json: error_response(appointment.errors.full_messages.to_sentence, 422)
     end
   end
 
@@ -32,7 +32,19 @@ class AppointmentsController < ApplicationController
     if @appointment.update(permit_params)
       render json: {status: I18n.t('success.status'), message: I18n.t('success.appointment_update'), appointment: @appointment.json}, status: 202
     else
-      render json: error_response(@appointment), status: 400
+      render json: error_response(@appointment.errors.full_messages.to_sentence, 422)
+    end
+  end
+
+  def show
+    render json: {status: I18n.t('success.status'), appointment: @appointment.json}, status: 200
+  end
+
+  def destroy
+    if @appointment.destroy
+      render json: {status: I18n.t('success.status'), message: I18n.t('success.appointment_delete'), appointment: @appointment.json}, status: 200
+    else
+      render json: error_response(@appointment.errors.full_messages.to_sentence, 422)
     end
   end
 
@@ -42,16 +54,15 @@ class AppointmentsController < ApplicationController
     #
     def set_mentor
       @mentor = Mentor.find(params[:mentor_id]) rescue nil
-      if !@mentor.present?
-        render json: {status: I18n.t("errors.status"), message: I18n.t('errors.mentor_not_found')}, status: 404
-      end
+      render json: error_response(I18n.t('errors.mentor_not_found'), 404) unless @mentor.present?
     end
 
     #
     # Sets Appointment record
     #
     def set_appointment
-      @appointment = @mentor.appointments.find(params[:id])
+      @appointment = @mentor.appointments.find(params[:id]) rescue nil
+      render json: error_response(I18n.t('errors.appointment_not_found'), 404) unless @appointment.present?
     end
 
     #

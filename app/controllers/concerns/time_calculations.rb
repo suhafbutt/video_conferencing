@@ -9,9 +9,9 @@ module TimeCalculations
     def list_of_hours date
       if date.present?
         parsed_date = date.to_datetime
-        appointment = @mentor.appointments.pluck(:starts_at)
+        appointment_slots = @mentor.appointments.pluck(:starts_at)
         return (parsed_date.to_i .. (parsed_date.end_of_day).to_i).step(1.hour).map { |e|
-                  [Time.at(e), appointment.include?(Time.at(e)) ? 'Booked' : 'Available']
+                  [Time.at(e), appointment_slots.include?(Time.at(e)) ? 'Booked' : 'Available']
                 }
       end
     end

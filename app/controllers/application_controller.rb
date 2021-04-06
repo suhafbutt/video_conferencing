@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
 
 
 	private
-		def error_response(obj)
-			{status: I18n.t('errors.status'), message: obj.errors.full_messages.to_sentence}
+		def error_response(message, status)
+			{status: I18n.t('errors.status'), message: message, status: status}
 		end
 end

@@ -6,6 +6,8 @@ class Appointment < ApplicationRecord
   validates_presence_of :user_ids, {message: I18n.t('errors.students_not_found')}
   before_validation :change_time_to_beginning_of_hour, if: Proc.new{|b| b.starts_at.present?}
   validates_with UniqueAppointmentValidator
+
+  # mentor_id is being used to enforce the prevent the duplication of appointments for mentor
   attr_accessor :mentor_id
 
   #

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     scope :v1 do
       resources :mentors, only: []do
         # get :agenda
-        resources :appointments, only: [:index, :create, :update]
+        resources :appointments, except: [:edit, :new]
       end
     end
   end

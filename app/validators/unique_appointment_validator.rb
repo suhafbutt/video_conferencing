@@ -5,7 +5,8 @@ class UniqueAppointmentValidator < ActiveModel::Validator
     #
     def validate(record)
       if record.user_ids.present?
-        duplicate_entries = Appointment.joins(:appointments_users).where("appointments_users.user_id IN (?) AND appointments.starts_at = ?", record.user_ids, record.starts_at)
+        participants = record.user_ids + [record.mentor_id] # mentor_id is enforcing the validation of duplication for mentor
+        duplicate_entries = Appointment.joins(:appointments_users).where("appointments_users.user_id IN (?) AND appointments.starts_at = ?", participants, record.starts_at)
         record.errors.add(:slot, I18n.t('errors.time_slot')) if duplicate_entries.present?
       end
     end
