@@ -19,7 +19,7 @@ class AppointmentsController < ApplicationController
     appointment = @mentor.appointments.new(permit_params)
     appointment.mentor_id = @mentor.id
     if @mentor.save
-      render json: { status: I18n.t('success.status'), message: I18n.t('success.appointment_create'), appointment: appointment}, status: 201
+      render json: { status: I18n.t('success.status'), message: I18n.t('success.appointment_create'), appointment: appointment.json}, status: 201
     else
       render json: error_response(appointment), status: 400
     end
@@ -43,7 +43,7 @@ class AppointmentsController < ApplicationController
     def set_mentor
       @mentor = Mentor.find(params[:mentor_id]) rescue nil
       if !@mentor.present?
-        render json: {status: I18n.t(:error), message: I18n.t('errors.mentor_not_found')}, status: 404
+        render json: {status: I18n.t("errors.status"), message: I18n.t('errors.mentor_not_found')}, status: 404
       end
     end
 
