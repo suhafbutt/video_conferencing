@@ -9,6 +9,9 @@ class AppointmentsController < ApplicationController
   # index
   #
   def index
+    # res = CareerFoundryApi.get_mentor_agenda
+    # puts "-=-=-=-==-==========iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
+    # puts res.inspect
     render json: { status: I18n.t('success.status'), mentor: @mentor.json, calendar: list_of_hours(params[:date])}
   end
 

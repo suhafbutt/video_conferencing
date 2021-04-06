@@ -5,6 +5,10 @@ RSpec.describe Appointment, type: :model do
   let(:mentor) { FactoryBot.create(:mentor) }
   let(:student) { FactoryBot.create(:student) }
 
+  before do
+    allow(CareerFoundryApi).to receive(:get_data) { [{"calendar"=>[{"date_time"=>"2020-10-24 17:10:09 +0200"}]}, 200] }
+  end
+
   describe "Validations" do
     it " is valid if appointment time and subject are present" do
       expect(FactoryBot.build(:appointment, user_ids: [mentor.id, student.id])).to be_valid

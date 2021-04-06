@@ -4,6 +4,10 @@ RSpec.describe "Appointments", type: :request do
 
   let(:mentor) { FactoryBot.create(:mentor) }
 
+  before do
+    allow(CareerFoundryApi).to receive(:get_data) { [{"calendar"=>[{"date_time"=>"2020-10-24 17:10:09 +0200"}]}, 200] }
+  end
+
   describe "GET /index" do
     before do
       get mentor_appointments_path(mentor, date: '2020-10-25')
@@ -26,6 +30,8 @@ RSpec.describe "Appointments", type: :request do
       get mentor_appointments_path(mentor, date: '2020-10-25')
       json_response = JSON.parse(response.body)
       booking_status = json_response['calendar'].map { |e| e[1]  }
+      puts "-=-=---==============================================================="
+      puts json_response['calendar']
       expect(booking_status).to include('Booked')
     end
   end

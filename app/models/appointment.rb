@@ -10,6 +10,9 @@ class Appointment < ApplicationRecord
   # mentor_id is being used to enforce the prevent the duplication of appointments for mentor
   attr_accessor :mentor_id
 
+  scope :booked, -> (date) { where('DATE(starts_at)=?', date.to_date) }
+
+
   #
   # Serializer
   #
