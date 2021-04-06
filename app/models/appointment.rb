@@ -5,7 +5,7 @@ class Appointment < ApplicationRecord
   validates_presence_of   :starts_at, :ends_at , :subject
   validates_presence_of :user_ids, {message: I18n.t('errors.students_not_found')}
   before_validation :change_time_to_beginning_of_hour, if: Proc.new{|b| b.starts_at.present?}
-  validates_with UniqueAppointmentValidator
+  validates_with UniqueAppointmentValidator, if: Proc.new{|b| b.starts_at.present?}
 
   # mentor_id is being used to enforce the prevent the duplication of appointments for mentor
   attr_accessor :mentor_id
@@ -19,10 +19,6 @@ class Appointment < ApplicationRecord
   def json
     AppointmentSerializer.new(self).serializable_hash
   end
-
-  # def starts_at
-  #   Time.now.in_time_zone()
-  # end
 
   private
     #

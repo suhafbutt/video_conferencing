@@ -4,7 +4,6 @@ FactoryBot.define do
     last_name {Faker::Name.last_name}
     email {Faker::Internet.email}
     time_zone { '+1' }
-    type {'User'}
   end
 
   factory :mentor, parent: :user do
