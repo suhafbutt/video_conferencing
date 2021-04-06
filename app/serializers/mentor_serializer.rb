@@ -1,6 +1,3 @@
-class MentorSerializer
-  include JSONAPI::Serializer
-
-  attributes :first_name, :last_name, :email
-  has_many :appointments 
+class MentorSerializer < UserSerializer
+  # Mentor specific additional attributes can be added in this class
 end

@@ -1,8 +1,8 @@
 class CreateAppointmentsUsers < ActiveRecord::Migration[6.1]
   def change
     create_table :appointments_users do |t|
-      t.integer :user_id, :null => false, :references => [:users, :id]
-      t.integer :appointment_id, :null => false, :references => [:appointments, :id]
+      t.references :user, :null => false
+      t.references :appointment, :null => false
       t.timestamps
     end
   end

@@ -1,6 +1,3 @@
-class StudentSerializer
-  include JSONAPI::Serializer
-
-  attributes :first_name, :last_name, :email
-  has_many :appointments
+class StudentSerializer < UserSerializer
+  # Students specific additional attributes can be added in this class
 end

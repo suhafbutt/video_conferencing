@@ -5,46 +5,59 @@ class AppointmentsController < ApplicationController
   before_action :set_mentor
   before_action :set_appointment, only: :update
 
+  #
+  # index
+  #
   def index
-    render json: { status: "success", mentor: @mentor.json, calendar: list_of_hours(params[:date])}
+    render json: { status: I18n.t('success.status'), mentor: @mentor.json, calendar: list_of_hours(params[:date])}
   end
 
+  #
+  # Create
+  #
   def create
-    app = @mentor.appointments.new(permit_params)
-    if app.save
-      render json: { status: "success", message: "Appointment has been created!", appointment: app}, :serializer => AppointmentSerializer
+    appointment = @mentor.appointments.new(permit_params)
+    appointment.mentor_id = @mentor.id
+    if @mentor.save
+      render json: { status: I18n.t('success.status'), message: I18n.t('success.appointment_create'), appointment: appointment}, status: 201
     else
-      render json: error_response(app)
+      render json: error_response(appointment), status: 400
     end
   end
 
+  #
+  # Update
+  #
   def update
     if @appointment.update(permit_params)
-      render json: { status: "success", message: "Appointment has been updated!", appointment: @appointment.json} 
+      render json: {status: I18n.t('success.status'), message: I18n.t('success.appointment_update'), appointment: @appointment.json}, status: 202
     else
-      render json: error_response(@appointment)
+      render json: error_response(@appointment), status: 400
     end
   end
 
   private
+    #
+    # Sets Mentor record
+    #
     def set_mentor
       @mentor = Mentor.find(params[:mentor_id]) rescue nil
       if !@mentor.present?
-        render json: {status: "error", message: "Mentor does not exist"}
+        render json: {status: I18n.t(:error), message: I18n.t('errors.mentor_not_found')}, status: 404
       end
     end
 
+    #
+    # Sets Appointment record
+    #
     def set_appointment
       @appointment = @mentor.appointments.find(params[:id])
     end
 
+    #
+    # Permits params
+    #
     def permit_params
-      formatted_date_time = params[:appointment][:start_at].to_time rescue ''
-      params[:appointment][:user_ids] = params[:appointment][:user_ids] + [@mentor.id] rescue []
-      params.require(:appointment).permit(:reason, user_ids:[]).merge!({start_at: formatted_date_time})
-    end
-
-    def error_response obj
-      {status: 'error', message: obj.errors.full_messages.to_sentence}
+      params.require(:appointment).permit(:starts_at, :subject, user_ids:[])
     end
 end

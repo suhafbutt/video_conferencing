@@ -16,28 +16,28 @@ ActiveRecord::Schema.define(version: 2021_04_04_180907) do
   enable_extension "plpgsql"
 
   create_table "appointments", force: :cascade do |t|
-    t.datetime "start_at"
-    t.text "reason"
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.text "subject", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "end_at"
-    t.integer "mentor_id"
-    t.integer "student_id"
   end
 
   create_table "appointments_users", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "appointment_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "appointment_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_id"], name: "index_appointments_users_on_appointment_id"
+    t.index ["user_id"], name: "index_appointments_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.string "type"
-    t.string "time_zone"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "email", null: false
+    t.string "type", null: false
+    t.string "time_zone", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

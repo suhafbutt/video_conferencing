@@ -2,12 +2,16 @@ module TimeCalculations
   extend ActiveSupport::Concern
 
   private
+    #
+    # Calculates the Appointment slots for the given date
+    # @param {String} date
+    #
     def list_of_hours date
       if date.present?
-        d = date.to_datetime
-        app = @mentor.appointments.pluck(:start_at)
-        return (d.to_i .. (d.end_of_day).to_i).step(1.hour).map { |e| 
-                  [Time.at(e), app.include?(Time.at(e)) ? 'Booked' : 'Available'] 
+        parsed_date = date.to_datetime
+        appointment = @mentor.appointments.pluck(:starts_at)
+        return (parsed_date.to_i .. (parsed_date.end_of_day).to_i).step(1.hour).map { |e|
+                  [Time.at(e), appointment.include?(Time.at(e)) ? 'Booked' : 'Available']
                 }
       end
     end

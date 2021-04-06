@@ -1,10 +1,9 @@
 class CreateAppointments < ActiveRecord::Migration[6.1]
   def change
     create_table :appointments do |t|
-      t.datetime :time
-      t.text :reason
-      t.integer :mentor_id, :null => false, :references => [:mentors, :id]
-      t.integer :student_id, :null => false, :references => [:students, :id]
+      t.datetime :starts_at, :null => false
+      t.datetime :ends_at, :null => false
+      t.text :subject, :null => false
       t.timestamps
     end
   end

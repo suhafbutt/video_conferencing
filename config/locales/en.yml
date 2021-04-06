@@ -30,4 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  success:
+    status: "success"
+    appointment_create: "Appointment has been created!"
+    appointment_update: "Appointment has been updated!"
+
+  errors:
+    status: "error"
+    time_slot: "has already been taken. Please select another slot."
+    mentor_not_found: "Mentor does not exist"
+    students_not_found: ": Students should be present!"

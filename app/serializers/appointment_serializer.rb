@@ -5,5 +5,5 @@ class AppointmentSerializer
 
   belongs_to :mentor
   belongs_to :student
-  attributes :reason, :start_at, :end_at
+  attributes :subject, :starts_at, :ends_at
 end
