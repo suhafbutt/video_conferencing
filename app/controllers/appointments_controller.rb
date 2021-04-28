@@ -53,7 +53,7 @@ class AppointmentsController < ApplicationController
     # Sets Mentor record
     #
     def set_mentor
-      @mentor = Mentor.find(params[:mentor_id]) rescue nil
+      @mentor = Mentor.find(params[:mentor_id])
       error_response(I18n.t('errors.mentor_not_found'), 404) unless @mentor.present?
     end
 
@@ -61,7 +61,7 @@ class AppointmentsController < ApplicationController
     # Sets Appointment record
     #
     def set_appointment
-      @appointment = @mentor.appointments.find(params[:id]) rescue nil
+      @appointment = @mentor.appointments.find(params[:id])
       error_response(I18n.t('errors.appointment_not_found'), 404) unless @appointment.present?
     end
 

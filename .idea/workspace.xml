@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df596f4e-1cd5-4dbe-8b25-70675a2f825a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/video_conferencing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/video_conferencing.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/concerns/time_calculations.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/concerns/time_calculations.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/appointments_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/appointments_controller.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +151,7 @@
       <option name="presentableId" value="Default" />
       <updated>1619561122311</updated>
       <workItem from="1619561128443" duration="1099000" />
-      <workItem from="1619562239813" duration="2384000" />
+      <workItem from="1619562239813" duration="2799000" />
     </task>
     <servers />
   </component>
@@ -160,6 +159,6 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/video_conferencing@Development__video_conferencing.rcov" NAME="Development: video_conferencing Coverage Results" MODIFIED="1619576168549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="video_conferencing" />
+    <SUITE FILE_PATH="coverage/video_conferencing@Development__video_conferencing.rcov" NAME="Development: video_conferencing Coverage Results" MODIFIED="1619576671145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="video_conferencing" />
   </component>
 </project>
